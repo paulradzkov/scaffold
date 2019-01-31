@@ -4,6 +4,12 @@ const less = require('gulp-less');
 const minifyCSS = require('gulp-csso');
 const rename = require('gulp-rename');
 //const concat = require('gulp-concat');
+const del = require('delete');
+
+function clean(cb) {
+  // Use the `delete` module directly, instead of using gulp-rimraf
+  del(['public'], cb);
+}
 
 //function html() {
 //  return src('client/templates/*.pug')
@@ -15,6 +21,7 @@ function rendercss(cb) {
     cb();
     return src('./src/ui/**/*.less')
         .pipe(less())
+        .pipe(src('./src/ui/**/*.css'))
         .pipe(dest('public/ui'))
         .pipe(minifyCSS())
         .pipe(rename({ extname: '.min.css' }))
@@ -27,6 +34,7 @@ function rendercss(cb) {
 //    .pipe(dest('build/js', { sourcemaps: true }))
 //}
 
+exports.clean = clean;
 //exports.js = js;
 exports.rendercss = rendercss;
 //exports.html = html;
