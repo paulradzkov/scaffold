@@ -1,7 +1,8 @@
 const { src, dest, parallel } = require('gulp');
 //const pug = require('gulp-pug');
 const less = require('gulp-less');
-//const minifyCSS = require('gulp-csso');
+const minifyCSS = require('gulp-csso');
+const rename = require('gulp-rename');
 //const concat = require('gulp-concat');
 
 //function html() {
@@ -10,12 +11,14 @@ const less = require('gulp-less');
 //    .pipe(dest('build/html'))
 //}
 
-function css(cb) {
-  return src('./src/ui/**/*.less')
-    .pipe(less())
-    //.pipe(minifyCSS())
-    .pipe(dest('public/ui'));
+function rendercss(cb) {
     cb();
+    return src('./src/ui/**/*.less')
+        .pipe(less())
+        .pipe(dest('public/ui'))
+        .pipe(minifyCSS())
+        .pipe(rename({ extname: '.min.css' }))
+        .pipe(dest('public/ui'));
 }
 
 //function js() {
@@ -25,6 +28,6 @@ function css(cb) {
 //}
 
 //exports.js = js;
-//exports.css = css;
+exports.rendercss = rendercss;
 //exports.html = html;
-exports.default = parallel(css);
+exports.default = parallel(rendercss);

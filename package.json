@@ -18,7 +18,9 @@
   "homepage": "https://github.com/paulradzkov/scaffold#readme",
   "devDependencies": {
     "gulp": "^4.0.0",
+    "gulp-csso": "^3.0.1",
     "gulp-less": "^4.0.1",
+    "gulp-rename": "^1.4.0",
     "gulp-sourcemaps": "^2.6.4"
   }
 }
