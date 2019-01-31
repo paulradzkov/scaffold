@@ -5,6 +5,7 @@ const minifyCSS = require('gulp-csso');
 const rename = require('gulp-rename');
 //const concat = require('gulp-concat');
 const del = require('delete');
+const sourcemaps = require('gulp-sourcemaps');
 
 function clean(cb) {
   // Use the `delete` module directly, instead of using gulp-rimraf
@@ -19,12 +20,14 @@ function clean(cb) {
 
 function rendercss(cb) {
     cb();
-    return src('./src/ui/**/*.less')
+    return src('src/ui/**/*.less')
+        .pipe(sourcemaps.init())
         .pipe(less())
-        .pipe(src('./src/ui/**/*.css'))
+        .pipe(src('src/ui/**/*.css'))
         .pipe(dest('public/ui'))
         .pipe(minifyCSS())
         .pipe(rename({ extname: '.min.css' }))
+        .pipe(sourcemaps.write(''))
         .pipe(dest('public/ui'));
 }
 
