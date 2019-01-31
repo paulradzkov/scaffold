@@ -2,7 +2,10 @@
 
 .space-settings() {
 
+    // space values
     @spaces: 0, 8px, 16px, 24px, 40px, 64px, 104px, 168px;
+
+    // names for space values
     @spacealias: -zero, -nano, -micro, -mili, -base, -kilo, -mega, -giga;
 
     // media breakpoints
@@ -14,12 +17,13 @@
 
     // names for breakpoint suffixes
     @suffixes: xs, sm, md, lg, xl;
+
     @suffixes-separator: ~"\:";  // will render css as .space-auto\:xs
 
     // IMPORTANT: suffixes count should be bigger than breakpoints count by 1
     // suffixes-count = breakpoints-count + 1
 
-    @cust-prop: true; // enable css custom properties
+    @cust-prop: true; // enable or disable css custom properties
 }
 
 & {
@@ -32,7 +36,7 @@
     @m: length(@suffixes);    // how many suffixes we have
     @first-suffix: extract(@suffixes, 1); // first breakpoint suffix
 
-    @none:;
+    @none:~""; // this produces empty string
     @top: -top;
     @bottom: -bottom;
     @left: -left;
@@ -115,7 +119,7 @@
 
         --space@{current-alias}: @current-value;
         & when (@current-value > 0) {
-            --space-minus@{current-alias}: (@current-value * -1);
+            --space-minus@{current-alias}: ~'-@{current-value}';
         }
     }
 

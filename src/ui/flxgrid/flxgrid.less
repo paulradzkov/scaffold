@@ -28,7 +28,7 @@
 
 }
 
-@grid-render: {
+& {
 
     // calculations
     @gutter-compensation: ((@gutter-width * 0.5) * -1);
@@ -231,6 +231,4 @@
     // Render mediaqueries with breakpoints if any
     .responsive();
 
-};
-
-@grid-render();
+}
