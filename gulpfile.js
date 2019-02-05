@@ -4,6 +4,8 @@ const less = require('gulp-less');
 const cssmin = require('gulp-csso');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
+const postcss = require('gulp-postcss');
+const autoprefixer = require('autoprefixer');
 //const pug = require('gulp-pug');
 //const concat = require('gulp-concat');
 
@@ -20,10 +22,14 @@ function clean(cb) {
 
 function rendercss(cb) {
     cb();
+    var plugins = [
+        autoprefixer()
+    ];
     return src('src/ui/**/*.less')
         .pipe(sourcemaps.init())
         .pipe(less())
-        .pipe(src(['src/ui/**/*.css']))
+        .pipe(src(['src/ui/**/*.css', '!src/ui/**/*.min.css']))
+        .pipe(postcss(plugins))
         .pipe(dest('public/ui'))
         .pipe(cssmin())
         .pipe(rename({ extname: '.min.css' }))
