@@ -1,0 +1,32 @@
+* {
+  box-sizing: inherit;
+}
+*:before,
+*after {
+  box-sizing: inherit;
+}
+html,
+body {
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+html {
+  background-color: #FFF;
+  color: #000;
+  font-size: 16px;
+  min-width: 320px;
+}
+body {
+  margin: 0;
+  scroll-behavior: smooth;
+}
+.global-maw {
+  max-width: 1920px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.global-miw {
+  min-width: 320px;
+}
+
+/*# sourceMappingURL=global.css.map */

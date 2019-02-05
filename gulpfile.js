@@ -1,6 +1,7 @@
-const { src, dest, series, parallel, watch } = require('gulp');
+const { src, dest, series, parallel, lastRun, watch } = require('gulp');
 const del = require('delete');
 const less = require('gulp-less');
+const sass = require('gulp-sass');
 const cssmin = require('gulp-csso');
 const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
@@ -9,9 +10,15 @@ const autoprefixer = require('autoprefixer');
 //const pug = require('gulp-pug');
 //const concat = require('gulp-concat');
 
-function clean(cb) {
+sass.compiler = require('node-sass');
+
+function cleanpublic(cb) {
     // Use the `delete` module directly, instead of using gulp-rimraf
     del(['public'], cb);
+}
+
+function cleansrc(cb) {
+    del(['src/ui/**/*.map'], cb);
 }
 
 //function html() {
@@ -20,20 +27,35 @@ function clean(cb) {
 //    .pipe(dest('build/html'))
 //}
 
-function rendercss(cb) {
+function renderless(cb) {
+    cb();
+    return src('src/ui/**/*.less')
+        .pipe(sourcemaps.init())
+        .pipe(less())
+        .pipe(sourcemaps.write('.'))
+        .pipe(dest('src/ui'));
+}
+
+function renderscss(cb) {
+    cb();
+    return src('src/ui/**/*.scss')
+        .pipe(sourcemaps.init())
+        .pipe(sass().on('error', sass.logError))
+        .pipe(sourcemaps.write('.'))
+        .pipe(dest('src/ui'));
+}
+
+function csspost(cb) {
     cb();
     var plugins = [
         autoprefixer()
     ];
-    return src('src/ui/**/*.less')
-        .pipe(sourcemaps.init())
-        .pipe(less())
-        .pipe(src(['src/ui/**/*.css', '!src/ui/**/*.min.css']))
+    return src(['src/ui/**/*.css', '!src/ui/**/*.min.css'])
+        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(postcss(plugins))
-        .pipe(dest('public/ui'))
         .pipe(cssmin())
         .pipe(rename({ extname: '.min.css' }))
-        .pipe(sourcemaps.write(''))
+        .pipe(sourcemaps.write('.'))
         .pipe(dest('public/ui'));
 }
 
@@ -43,15 +65,19 @@ function rendercss(cb) {
 //    .pipe(dest('build/js', { sourcemaps: true }))
 //}
 
-function watcher() {
-    watch(['src/ui/**/*.less', 'src/ui/**/*.css'], rendercss);
+function watchsrc() {
+    watch(['src/ui/**/*.less'], series(renderless, csspost, cleansrc));
+    watch(['src/ui/**/*.scss'], series(renderscss, csspost, cleansrc));
 }
 
-exports.clean = clean;
+exports.cleanpublic = cleanpublic;
+exports.cleansrc    = cleansrc;
 //exports.js = js;
-exports.rendercss = rendercss;
+exports.renderless = renderless;
+exports.renderscss = renderscss;
+exports.csspost = csspost;
 //exports.html = html;
-exports.watcher = watcher;
-exports.build = series(clean, parallel(rendercss));
-exports.dev = series(clean, parallel(rendercss), watcher);
-exports.default = series(clean, parallel(rendercss));
+exports.watchsrc = watchsrc;
+exports.build   = series(renderless, renderscss, csspost, cleansrc);
+exports.dev     = series(renderless, renderscss, csspost, cleansrc, watchsrc);
+exports.default = series(renderless, renderscss, csspost, cleansrc);

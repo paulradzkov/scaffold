@@ -1,0 +1,91 @@
+/*! txt.less v0.0.2 | MIT License | github.com/paulradzkov/text.less */
+.txt-left {
+  text-align: left;
+}
+.txt-right {
+  text-align: right;
+}
+.txt-center {
+  text-align: center;
+}
+.txt-justify {
+  text-align: justify;
+}
+.txt-nowrap {
+  white-space: nowrap;
+}
+.txt-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.txt-left\:xs {
+  text-align: left;
+}
+.txt-right\:xs {
+  text-align: right;
+}
+.txt-center\:xs {
+  text-align: center;
+}
+.txt-justify\:xs {
+  text-align: justify;
+}
+@media (min-width: 576px) {
+  .txt-left\:sm {
+    text-align: left;
+  }
+  .txt-right\:sm {
+    text-align: right;
+  }
+  .txt-center\:sm {
+    text-align: center;
+  }
+  .txt-justify\:sm {
+    text-align: justify;
+  }
+}
+@media (min-width: 768px) {
+  .txt-left\:md {
+    text-align: left;
+  }
+  .txt-right\:md {
+    text-align: right;
+  }
+  .txt-center\:md {
+    text-align: center;
+  }
+  .txt-justify\:md {
+    text-align: justify;
+  }
+}
+@media (min-width: 992px) {
+  .txt-left\:lg {
+    text-align: left;
+  }
+  .txt-right\:lg {
+    text-align: right;
+  }
+  .txt-center\:lg {
+    text-align: center;
+  }
+  .txt-justify\:lg {
+    text-align: justify;
+  }
+}
+@media (min-width: 1200px) {
+  .txt-left\:xl {
+    text-align: left;
+  }
+  .txt-right\:xl {
+    text-align: right;
+  }
+  .txt-center\:xl {
+    text-align: center;
+  }
+  .txt-justify\:xl {
+    text-align: justify;
+  }
+}
+
+/*# sourceMappingURL=txt.css.map */

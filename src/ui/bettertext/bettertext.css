@@ -1,0 +1,524 @@
+/*! bettertext.css v3.0.0 | MIT License | github.com/paulradzkov/bettertext.css */
+/*
+    1. Prevent adjustments of font size after orientation changes in
+       IE on Windows Phone and in iOS.
+    2. Because the text-underline-position property inherits and is not reset
+       by the text-decoration shorthand property, it may be appropriate to set
+       its value at a global level. For example, the under value may be appropriate
+       for a document with lots of chemical and mathematical formulas, which make
+       a large use of subscripts.
+    */
+html {
+  -ms-text-size-adjust: 100%;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 1 */
+  text-underline-position: under;
+  /* 2 */
+}
+/*
+    1. Render fallback font immediately, wait for webfont to load infinitely.
+    2. Font kerning information stored in the font must be applied.
+    3. The browser emphasizes legibility over rendering speed and geometric
+       precision. This enables kerning and optional ligatures.
+    4. OpenType features
+       https://helpx.adobe.com/typekit/using/open-type-syntax.html
+       "kern" — kerning
+       "liga" — common ligatures
+       "clig" — contextual ligatures
+       "calt" — contextual alternates
+    */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 1em;
+  line-height: 1.5;
+  font-display: swap;
+  /* 1 */
+  font-kerning: normal;
+  /* 2 */
+  text-rendering: optimizeLegibility;
+  /* 3 */
+  font-variant-ligatures: common-ligatures contextual;
+  /* 4 */
+  font-feature-settings: "kern", "liga", "clig", "calt";
+  /* 4 */
+}
+/*
+    Add default spacing for structure tags without classnames
+    */
+body:not(.default),
+article:not(.default),
+section:not(.default) {
+  margin: 40px;
+  /*
+        Reset nested margins
+        */
+}
+body:not(.default) article:not(.default),
+article:not(.default) article:not(.default),
+section:not(.default) article:not(.default),
+body:not(.default) section:not(.default),
+article:not(.default) section:not(.default),
+section:not(.default) section:not(.default) {
+  margin-left: 0;
+  margin-right: 0;
+}
+p {
+  margin: 0 0 1.5em;
+  max-width: 50rem;
+}
+/*
+    minimum paragraph width when floating http://css-tricks.com/minimum-paragraph-widths/
+    */
+p:before,
+ol:not(.default):before,
+ul:not(.default):before {
+  content: '';
+  display: block;
+  width: 10em;
+  overflow: hidden;
+}
+li p:before {
+  content: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-weight: bolder;
+  max-width: 50rem;
+}
+h1 {
+  font-size: 1.625em;
+  line-height: 1.15384615;
+  margin-top: 3.38461538em;
+  margin-bottom: 0.92307692em;
+}
+h2 {
+  font-size: 1.4375em;
+  line-height: 1.2173913;
+  margin-top: 3.13043478em;
+  margin-bottom: 1.04347826em;
+}
+h3 {
+  font-size: 1.25em;
+  line-height: 1.3;
+  margin-top: 2.8em;
+  margin-bottom: 1.2em;
+}
+h4 {
+  font-size: 1.125em;
+  line-height: 1.38888889;
+  margin-top: 2.22222222em;
+  margin-bottom: 1.33333333em;
+}
+h5 {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-top: 1.5em;
+  margin-bottom: 0;
+}
+h6 {
+  font-size: 0.75em;
+  line-height: 2;
+  margin-top: 2em;
+  margin-bottom: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.4375em;
+    line-height: 1.15384615;
+    margin-top: 4.30769231em;
+    margin-bottom: 0.61538462em;
+  }
+  h2 {
+    font-size: 1.9375em;
+    line-height: 1.22580645;
+    margin-top: 3.35483871em;
+    margin-bottom: 0.77419355em;
+  }
+  h3 {
+    font-size: 1.5625em;
+    line-height: 1.28;
+    margin-top: 2.56em;
+    margin-bottom: 0.96em;
+  }
+  h4 {
+    font-size: 1.25em;
+    line-height: 1.4;
+    margin-top: 2em;
+    margin-bottom: 1.2em;
+  }
+}
+h1:first-child,
+h2:first-child,
+h3:first-child,
+h4:first-child,
+h5:first-child,
+h6:first-child {
+  margin-top: 0;
+}
+/* double headers */
+h1 + h2 {
+  margin-top: 1.2173913em;
+}
+h2 + h3 {
+  margin-top: 1.3em;
+}
+h3 + h4 {
+  margin-top: 1.38888889em;
+}
+h4 + h5 {
+  margin-top: 1.5em;
+}
+h5 + h6 {
+  margin-top: 2em;
+}
+/* lists */
+/* lists without classes */
+ul:not(.default),
+ol:not(.default) {
+  margin: 0 0 1.5em;
+  max-width: calc(50rem - 2.5em);
+  padding-left: 0;
+  padding-right: 2.5em;
+}
+ul:not(.default) ul,
+ol:not(.default) ul,
+ul:not(.default) ol,
+ol:not(.default) ol {
+  margin-bottom: 0;
+}
+ul:not(.default) li,
+ol:not(.default) li {
+  transform: translateX(2.5em);
+  animation: fixlists 1s;
+}
+@keyframes fixlists {
+  0% {
+    text-indent: -0.001em;
+  }
+  100% {
+    text-indent: 0;
+  }
+}
+img {
+  max-width: 100%;
+  height: auto;
+  vertical-align: bottom;
+}
+p img:not(:only-child) {
+  vertical-align: baseline;
+}
+figure:not(.default) {
+  margin: 3em 0;
+}
+figure:not(.default) > p {
+  max-width: 50rem;
+  font-size: 0.75em;
+  margin: 0.5em 0 0;
+}
+figcaption:not(.default) {
+  max-width: 50rem;
+  font-size: 0.75em;
+  margin: 0.5em 0 3em;
+}
+figcaption:not(.default) > p {
+  margin: 0.5em 0 0;
+}
+blockquote:not(.default) {
+  box-sizing: border-box;
+  max-width: calc(50rem - 5em);
+  margin: 0 0 1.5em;
+  padding: 1.5em 2.5em;
+}
+blockquote:not(.default) > p:last-child {
+  margin-bottom: 0;
+}
+blockquote:not(.default) > footer,
+blockquote:not(.default) > cite {
+  display: block;
+  font-size: 0.75em;
+}
+/*
+    1. Open Type features
+       https://helpx.adobe.com/typekit/using/open-type-syntax.html
+       "kern" — kerning
+       "liga" — common ligatures
+       "clig" — contextual ligatures
+       "calt" — contextual alternates
+       "lnum" — lining figures (not oldstyle figures "onum")
+       "tnum" — tabular figures (not proportional figures "pnum")
+    */
+table:not(.default) {
+  margin-top: 3em;
+  margin-bottom: 3em;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-variant-numeric: lining-nums tabular-nums diagonal-fractions;
+  /* 1 */
+  font-feature-settings: "kern", "liga", "clig", "calt", "lnum", "tnum", "frac";
+  /* 1 */
+  width: 100%;
+}
+table:not(.default) caption {
+  text-align: left;
+  font-size: 0.75em;
+  margin-bottom: 0.625em;
+}
+table:not(.default) td,
+table:not(.default) th {
+  padding: 0.5em 1em;
+  text-align: left;
+  vertical-align: top;
+  border-style: solid;
+  border-color: rgba(128, 128, 128, 0.2);
+  border-width: 0 0 1px;
+}
+table:not(.default) td:first-child,
+table:not(.default) th:first-child {
+  padding-left: 0;
+}
+table:not(.default) td:last-child,
+table:not(.default) th:last-child {
+  padding-right: 0;
+}
+table:not(.default) th {
+  font-weight: bolder;
+}
+table:not(.default) thead td,
+table:not(.default) thead th {
+  vertical-align: bottom;
+  border-bottom-width: 2px;
+}
+/* definition lists */
+dl:not(.default) {
+  max-width: 50rem;
+  margin: 0 0 1.5em;
+}
+dl:not(.default) dt:not([class]) {
+  font-weight: bolder;
+}
+dl:not(.default) dd:not([class]) {
+  margin: 0 0 1.5em;
+}
+/*
+    1. Add the correct box sizing in Firefox.
+    2. Show the overflow in Edge and IE.
+    */
+hr {
+  box-sizing: content-box;
+  /* 1 */
+  height: 0;
+  /* 1 */
+  overflow: visible;
+  /* 2 */
+}
+hr:not(.default) {
+  border: 0;
+  border-bottom: 1px solid;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  max-width: 50rem;
+  opacity: 0.1;
+}
+em > em {
+  font-family: cursive;
+}
+/*
+    1. Increase letter-spacing for all capitals
+    2. Compensate letter-spacing after last letter to keep same optical word-spacing
+    3. Open Type features
+       https://helpx.adobe.com/typekit/using/open-type-syntax.html
+       "kern" — kerning
+       "liga" — common ligatures
+       "clig" — contextual ligatures
+       "calt" — contextual alternates
+       "onum" — oldstyle figures
+       "pnum" — proportional figures
+    4. Undo normalize.css styles
+    */
+abbr {
+  letter-spacing: 0.05em;
+  /* 1 */
+  margin-right: -0.05em;
+  /* 2 */
+  font-variant-numeric: oldstyle-nums proportional-nums;
+  /* 3 */
+  font-feature-settings: "kern", "liga", "clig", "calt", "onum", "pnum";
+  /* 3 */
+}
+abbr[title] {
+  border-bottom: none;
+  /* 4 */
+}
+/*
+    1. Use 'normal' to look same as regular text
+    */
+dfn,
+address {
+  font-style: normal;
+  /* 1 */
+}
+/*
+    1. Use 'bolder' instead of 'bold' to make styles relative to the weight of parent node
+    */
+strong,
+b,
+dt,
+dfn {
+  font-weight: bolder;
+  /* 1 */
+}
+/*
+    1. Correct the inheritance and scaling of font size in all browsers.
+    2. Correct the odd `em` font sizing in all browsers.
+    3. Open Type features:
+       https://helpx.adobe.com/typekit/using/open-type-syntax.html
+       - tunr off ligatures
+       - use lining figures and tabulat figures
+       "kern" — kerning
+       "liga" — common ligatures
+       "clig" — contextual ligatures
+       "calt" — contextual alternates
+       "lnum" — lining figures (not oldstyle figures "onum")
+       "tnum" — tabular figures (not proportional figures "pnum")
+    */
+pre,
+code,
+kbd,
+samp {
+  font-family: Courier, monospace, monospace;
+  /* 1 */
+  font-size: 1em;
+  /* 2 */
+  font-variant-ligatures: none;
+  /* 3 */
+  font-variant-numeric: lining-nums tabular-nums;
+  /* 3 */
+  font-feature-settings: "kern", "liga" 0, "clig" 0, "calt" 0, "lnum", "tnum";
+  /* 3 */
+}
+var {
+  font-family: Georgia, Times, serif;
+  font-variant-numeric: lining-nums tabular-nums;
+  /* 3 */
+  font-feature-settings: "kern", "liga", "clig", "calt", "lnum", "tnum";
+  /* 3 */
+  font-style: italic;
+}
+/* 1. opinionated: wrap words */
+pre {
+  margin: 1.5em 0;
+  white-space: pre-wrap;
+  /* 1 */
+}
+/*
+    1. Break text using the least restrictive line break rule.
+       Typically used for short lines, such as in newspapers.
+    2. To prevent overflow, normally unbreakable words may be broken at arbitrary points
+       if there are no otherwise acceptable break points in the line.
+    3. Adjust font-size and line-height.
+       Make monospaced font looks same height as regular paragraph text and compensate
+       line-height.
+    */
+p code,
+p samp {
+  line-break: loose;
+  /* 1 */
+  overflow-wrap: break-word;
+  /* 2 */
+  font-size: 1.075em;
+  /* 3 */
+  line-height: 1.3;
+  /* 3 */
+}
+mark {
+  color: inherit;
+  background-color: hsla(54, 100%, 50%, 0.5);
+}
+ins {
+  text-decoration: underline dashed green;
+  text-underline-position: under;
+}
+/**
+     * Prevent `sub` and `sup` affecting `line-height` in all browsers.
+     */
+sub,
+sup {
+  font-size: 0.75em;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+small {
+  font-size: 0.75em;
+}
+/* 1 - width same as line-height for square buttons */
+kbd:not(.default) {
+  box-sizing: content-box;
+  display: inline-block;
+  margin: 0.25em;
+  border: 1px solid;
+  border-radius: 0.25em;
+  padding: 0 0.25em;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+  font-size: 87.5%;
+  line-height: 1.5em;
+  min-width: 1em;
+  /* 1 */
+  text-align: center;
+}
+body:not(.default) > *:not(.default),
+article:not(.default) > *:not(.default),
+section:not(.default) > *:not(.default) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+}
+body:not(.default) > ul:not(.default),
+article:not(.default) > ul:not(.default),
+section:not(.default) > ul:not(.default),
+body:not(.default) > ol:not(.default),
+article:not(.default) > ol:not(.default),
+section:not(.default) > ol:not(.default) {
+  max-width: calc(50rem - 2.5em);
+}
+body:not(.default) > pre:not(.default),
+article:not(.default) > pre:not(.default),
+section:not(.default) > pre:not(.default) {
+  max-width: calc(100% - (100% - 50rem) / 2);
+  margin-left: auto;
+  margin-right: 0;
+}
+body:not(.default) > figure:not(.default),
+article:not(.default) > figure:not(.default),
+section:not(.default) > figure:not(.default) {
+  display: table;
+  max-width: 100%;
+}
+body:not(.default) > figure:not(.default) > *:not(img),
+article:not(.default) > figure:not(.default) > *:not(img),
+section:not(.default) > figure:not(.default) > *:not(img) {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50rem;
+}
+body:not(.default) > figure:not(.default) figcaption:not(default),
+article:not(.default) > figure:not(.default) figcaption:not(default),
+section:not(.default) > figure:not(.default) figcaption:not(default) {
+  max-width: 25rem;
+}
+
+/*# sourceMappingURL=bettertext.css.map */
