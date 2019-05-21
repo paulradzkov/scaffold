@@ -7,13 +7,15 @@ const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
+const csslint = require('gulp-csslint');
+const htmlReporter = require('gulp-csslint-report');
+const gulpStylelint = require('gulp-stylelint');
 //const pug = require('gulp-pug');
 //const concat = require('gulp-concat');
 
 sass.compiler = require('node-sass');
 
 function cleanpublic(cb) {
-    // Use the `delete` module directly, instead of using gulp-rimraf
     del(['public'], cb);
 }
 
@@ -38,7 +40,7 @@ function renderless(cb) {
 
 function renderscss(cb) {
     cb();
-    return src('src/ui/**/*.scss')
+    return src('src/ui/**/*.scss', 'src/ui/**/*.sass')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
         .pipe(sourcemaps.write('.'))
@@ -59,6 +61,24 @@ function csspost(cb) {
         .pipe(dest('public/ui'));
 }
 
+function lintcss(cb) {
+    cb();
+    return src('src/ui/**/*.less')
+        //.pipe(csslint())
+        //.pipe(htmlReporter({
+        //    'filename': 'index.html',
+        //    'directory': './reports/csslint'
+        //}))
+        .pipe(gulpStylelint({
+            failAfterError: false,
+            reportOutputDir: './reports/stylelint',
+            reporters: [
+                {formatter: 'verbose', console: true},
+                {formatter: 'json', save: 'report.json'}
+            ]
+        }));
+}
+
 //function js() {
 //  return src('client/javascript/*.js', { sourcemaps: true })
 //    .pipe(concat('app.min.js'))
@@ -66,8 +86,8 @@ function csspost(cb) {
 //}
 
 function watchsrc() {
-    watch(['src/ui/**/*.less'], series(renderless, csspost, cleansrc));
-    watch(['src/ui/**/*.scss'], series(renderscss, csspost, cleansrc));
+    watch(['src/ui/**/*.less'], series(renderless, csspost));
+    watch(['src/ui/**/*.scss', 'src/ui/**/*.sass'], series(renderscss, csspost));
 }
 
 exports.cleanpublic = cleanpublic;
@@ -75,7 +95,8 @@ exports.cleansrc    = cleansrc;
 //exports.js = js;
 exports.renderless = renderless;
 exports.renderscss = renderscss;
-exports.csspost = csspost;
+exports.csspost    = csspost;
+exports.lintcss    = lintcss;
 //exports.html = html;
 exports.watchsrc = watchsrc;
 exports.build   = series(renderless, renderscss, csspost, cleansrc);
