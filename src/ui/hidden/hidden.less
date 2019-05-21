@@ -1,41 +1,38 @@
 /*! hidden.less v0.0.2 | MIT License | github.com/paulradzkov/hidden.less */
 
 .hidden-settings() {
-    // media breakpoints
-    @breakpoints:
+    // media breakpoints, defined in pixels
+    @viewport-breakpoints-value:
         576px,
-        768px,
-        992px,
-        1200px;
+        768px;
 
     // names for breakpoint suffixes
-    @suffixes: xs, sm, md, lg, xl;
+    @viewport-suffixes: sm, md, lg;
     @suffixes-separator: ~"\:";  // will render css as .hidden\:xs
 
-    // IMPORTANT: suffixes count should be bigger than breakpoints count by 1
-    // suffixes-count = breakpoints-count + 1
+    // IMPORTANT: if we have 2 viewport breakpoints, we must define 3 viewport suffixes.
 }
 
 & {
 
     .hidden-settings();
 
-    @n: length(@breakpoints); // how many breakpoints we have
-    @m: length(@suffixes);    // how many suffixes we have
-    @first-suffix: extract(@suffixes, 1); // first breakpoint suffix
+    @n: length(@viewport-breakpoints-value); // how many breakpoints we have
+    @m: length(@viewport-suffixes);    // how many suffixes we have
+    @first-suffix: extract(@viewport-suffixes, 1); // first breakpoint suffix
 
     // Create breakpoints
     .responsive(@index: @m) when (@index > 1) and (@m = (@n + 1)) {
         .responsive((@index - 1)); // next iteration
-        @current-class: extract(@suffixes, @index);
-        @current-breakpoint: extract(@breakpoints, (@index - 1));
-        @prev-class: extract(@suffixes, @index - 1);
-        @prev-breakpoint: extract(@breakpoints, (@index - 2));
+        @current-suffix: extract(@viewport-suffixes, @index);
+        @current-breakpoint: extract(@viewport-breakpoints-value, (@index - 1));
+        @prev-suffix: extract(@viewport-suffixes, @index - 1);
+        @prev-breakpoint: extract(@viewport-breakpoints-value, (@index - 2));
 
         // render between
         & when (@index > 2) {
             @media (min-width: @prev-breakpoint) and (max-width: (@current-breakpoint - 1px)) {
-                .hidden@{suffixes-separator}between-@{prev-class}-@{current-class} {
+                .hidden@{suffixes-separator}between-@{prev-suffix}-@{current-suffix} {
                     display: none;
                 }
             }
@@ -43,18 +40,18 @@
 
         // render upto
         @media (max-width: (@current-breakpoint - 1px)) {
-            .hidden@{suffixes-separator}upto-@{current-class} {
+            .hidden@{suffixes-separator}upto-@{current-suffix} {
                 display: none;
             }
 
-            .hidden@{suffixes-separator}between-@{prev-class}-@{current-class} when (@index = 2) {
+            .hidden@{suffixes-separator}between-@{prev-suffix}-@{current-suffix} when (@index = 2) {
                 display: none;
             }
         }
 
         // render from
         @media (min-width: @current-breakpoint) {
-            .hidden@{suffixes-separator}from-@{current-class} {
+            .hidden@{suffixes-separator}from-@{current-suffix} {
                 display: none;
             }
         }

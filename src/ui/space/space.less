@@ -3,27 +3,23 @@
 .space-settings() {
 
     // space values
-    @spaces: 0, 8px, 16px, 24px, 40px, 64px, 104px, 168px;
+    @spaces: 0, 8px, 16px, 24px, 40px, 64px, 104px;
 
     // names for space values
-    @spacealias: -zero, -nano, -micro, -mili, -base, -kilo, -mega, -giga;
+    @spacealias: -zero, -nano, -micro, -mili, -base, -kilo, -mega;
 
     // media breakpoints
-    @breakpoints:
+    @viewport-breakpoints:
         ~"(min-width: 576px)",
-        ~"(min-width: 768px)",
-        ~"(min-width: 992px)",
-        ~"(min-width: 1200px)";
+        ~"(min-width: 768px)";
 
     // names for breakpoint suffixes
-    @suffixes: xs, sm, md, lg, xl;
-
-    @suffixes-separator: ~"\:";  // will render css as .space-auto\:xs
+    @viewport-suffixes: ~"\:sm", ~"\:md", ~"\:lg"; // will render css as .space-auto\:xs
 
     // IMPORTANT: suffixes count should be bigger than breakpoints count by 1
     // suffixes-count = breakpoints-count + 1
 
-    @cust-prop: true; // enable or disable css custom properties
+    @cust-prop: false; // enable or disable css custom properties
 }
 
 & {
@@ -32,19 +28,17 @@
 
     @i: length(@spaces);      // how many steps we have
     @j: length(@spacealias);  // how many aliases we have
-    @n: length(@breakpoints); // how many breakpoints we have
-    @m: length(@suffixes);    // how many suffixes we have
-    @first-suffix: extract(@suffixes, 1); // first breakpoint suffix
+    @n: length(@viewport-breakpoints); // how many breakpoints we have
+    @m: length(@viewport-suffixes);    // how many suffixes we have
+    @first-suffix: extract(@viewport-suffixes, 1); // first breakpoint suffix
 
     @none:~""; // this produces empty string
-    @top: -top;
-    @bottom: -bottom;
-    @left: -left;
-    @right: -right;
-    @v: -v;
-    @h: -h;
-    @tall: -tall;
-    @wide: -wide;
+    @top: -t;
+    @bottom: -b;
+    @left: -l;
+    @right: -r;
+    @vertical: -v;
+    @horizontal: -h;
 
     // Basic looping in LESS
     .loop-space-steps(@type, @suff, @prop, @sign, @index: @i) when (@index > 0) and ( @i = @j) {
@@ -59,34 +53,22 @@
             // we don't want .space-minus-zero:xs { margin: 0;}
             & when not ((@type = minus) and (@index = 1)) {
                 & when (@sign = 1) {
-                    .space-@{type}@{current-alias}@{suff-sep}@{suff}          { && { @{prop}:        ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{top}@{current-alias}@{suff-sep}@{suff}    { && { @{prop}-top:    ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{bottom}@{current-alias}@{suff-sep}@{suff} { && { @{prop}-bottom: ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{left}@{current-alias}@{suff-sep}@{suff}   { && { @{prop}-left:   ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{right}@{current-alias}@{suff-sep}@{suff}  { && { @{prop}-right:  ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{v}@{current-alias}@{suff-sep}@{suff}      { && { @{prop}-top:    ~"var(--space@{current-alias})"; @{prop}-bottom: ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{h}@{current-alias}@{suff-sep}@{suff}      { && { @{prop}-left:   ~"var(--space@{current-alias})"; @{prop}-right:  ~"var(--space@{current-alias})"; } }
-
-                    // we don't want tall and wide classes on zero and nano steps
-                    & when (@index > 2) {
-                        .space-@{type}@{tall}@{current-alias}@{suff-sep}@{suff} { && { @{prop}: ~"var(--space@{current-alias})" ~"var(--space@{current-pre-alias})"; } }
-                        .space-@{type}@{wide}@{current-alias}@{suff-sep}@{suff} { && { @{prop}: ~"var(--space@{current-pre-alias})" ~"var(--space@{current-alias})"; } }
-                    }
+                    .space-@{type}@{current-alias}@{suff}          { && { @{prop}:        ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{top}@{current-alias}@{suff}    { && { @{prop}-top:    ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{bottom}@{current-alias}@{suff} { && { @{prop}-bottom: ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{left}@{current-alias}@{suff}   { && { @{prop}-left:   ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{right}@{current-alias}@{suff}  { && { @{prop}-right:  ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{vertical}@{current-alias}@{suff}      { && { @{prop}-top:    ~"var(--space@{current-alias})"; @{prop}-bottom: ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{horizontal}@{current-alias}@{suff}      { && { @{prop}-left:   ~"var(--space@{current-alias})"; @{prop}-right:  ~"var(--space@{current-alias})"; } }
                 }
                 & when (@sign = -1) {
-                    .space-@{type}@{current-alias}@{suff-sep}@{suff}          { && { @{prop}:        ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{top}@{current-alias}@{suff-sep}@{suff}    { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{bottom}@{current-alias}@{suff-sep}@{suff} { && { @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{left}@{current-alias}@{suff-sep}@{suff}   { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{right}@{current-alias}@{suff-sep}@{suff}  { && { @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{v}@{current-alias}@{suff-sep}@{suff}      { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{h}@{current-alias}@{suff-sep}@{suff}      { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
-
-                    // we don't want tall and wide classes on zero and nano steps
-                    & when (@index > 2) {
-                        .space-@{type}@{tall}@{current-alias}@{suff-sep}@{suff} { && { @{prop}: ~"var(--space-minus@{current-alias})" ~"var(--space-minus@{current-pre-alias})"; } }
-                        .space-@{type}@{wide}@{current-alias}@{suff-sep}@{suff} { && { @{prop}: ~"var(--space-minus@{current-pre-alias})" ~"var(--space-minus@{current-alias})"; } }
-                    }
+                    .space-@{type}@{current-alias}@{suff}          { && { @{prop}:        ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{top}@{current-alias}@{suff}    { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{bottom}@{current-alias}@{suff} { && { @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{left}@{current-alias}@{suff}   { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{right}@{current-alias}@{suff}  { && { @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{vertical}@{current-alias}@{suff}      { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{horizontal}@{current-alias}@{suff}      { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
                 }
             }
         }
@@ -95,19 +77,13 @@
 
             // we don't want .space-minus-zero:xs { margin: 0;}
             & when not ((@type = minus) and (@index = 1)) {
-                .space-@{type}@{current-alias}@{suff-sep}@{suff}          { && { @{prop}:        (@current-value * @sign); } }
-                .space-@{type}@{top}@{current-alias}@{suff-sep}@{suff}    { && { @{prop}-top:    (@current-value * @sign); } }
-                .space-@{type}@{bottom}@{current-alias}@{suff-sep}@{suff} { && { @{prop}-bottom: (@current-value * @sign); } }
-                .space-@{type}@{left}@{current-alias}@{suff-sep}@{suff}   { && { @{prop}-left:   (@current-value * @sign); } }
-                .space-@{type}@{right}@{current-alias}@{suff-sep}@{suff}  { && { @{prop}-right:  (@current-value * @sign); } }
-                .space-@{type}@{v}@{current-alias}@{suff-sep}@{suff}      { && { @{prop}-top:    (@current-value * @sign); @{prop}-bottom: (@current-value * @sign); } }
-                .space-@{type}@{h}@{current-alias}@{suff-sep}@{suff}      { && { @{prop}-left:   (@current-value * @sign); @{prop}-right:  (@current-value * @sign); } }
-
-                // we don't want tall and wide classes on zero and nano steps
-                & when (@index > 2) {
-                    .space-@{type}@{tall}@{current-alias}@{suff-sep}@{suff} { && { @{prop}: (@current-value * @sign) (@current-pre-value * @sign); } }
-                    .space-@{type}@{wide}@{current-alias}@{suff-sep}@{suff} { && { @{prop}: (@current-pre-value * @sign) (@current-value * @sign); } }
-                }
+                .space-@{type}@{current-alias}@{suff}          { && { @{prop}:        (@current-value * @sign); } }
+                .space-@{type}@{top}@{current-alias}@{suff}    { && { @{prop}-top:    (@current-value * @sign); } }
+                .space-@{type}@{bottom}@{current-alias}@{suff} { && { @{prop}-bottom: (@current-value * @sign); } }
+                .space-@{type}@{left}@{current-alias}@{suff}   { && { @{prop}-left:   (@current-value * @sign); } }
+                .space-@{type}@{right}@{current-alias}@{suff}  { && { @{prop}-right:  (@current-value * @sign); } }
+                .space-@{type}@{vertical}@{current-alias}@{suff}      { && { @{prop}-top:    (@current-value * @sign); @{prop}-bottom: (@current-value * @sign); } }
+                .space-@{type}@{horizontal}@{current-alias}@{suff}      { && { @{prop}-left:   (@current-value * @sign); @{prop}-right:  (@current-value * @sign); } }
             }
         }
     }
@@ -124,15 +100,15 @@
     }
 
     // Render module with breakpoint suffix
-    .space(@suff; @suff-sep: @suffixes-separator) {
+    .space(@suff;) {
 
-        .space-auto@{suff-sep}@{suff}          { && { margin:        auto; } }
-        .space-auto@{top}@{suff-sep}@{suff}    { && { margin-top:    auto; } }
-        .space-auto@{bottom}@{suff-sep}@{suff} { && { margin-bottom: auto; } }
-        .space-auto@{left}@{suff-sep}@{suff}   { && { margin-left:   auto; } }
-        .space-auto@{right}@{suff-sep}@{suff}  { && { margin-right:  auto; } }
-        .space-auto@{v}@{suff-sep}@{suff}      { && { margin-top: auto; margin-bottom: auto; } }
-        .space-auto@{h}@{suff-sep}@{suff}      { && { margin-left: auto; margin-right: auto; } }
+        .space-auto@{suff}          { && { margin:        auto; } }
+        .space-auto@{top}@{suff}    { && { margin-top:    auto; } }
+        .space-auto@{bottom}@{suff} { && { margin-bottom: auto; } }
+        .space-auto@{left}@{suff}   { && { margin-left:   auto; } }
+        .space-auto@{right}@{suff}  { && { margin-right:  auto; } }
+        .space-auto@{vertical}@{suff}      { && { margin-top: auto; margin-bottom: auto; } }
+        .space-auto@{horizontal}@{suff}      { && { margin-left: auto; margin-right: auto; } }
 
         .loop-space-steps(in, @suff, padding, 1, @i);
         .loop-space-steps(out, @suff, margin, 1, @i);
@@ -142,11 +118,11 @@
     // Create breakpoints
     .responsive(@index: @m) when (@index > 1) and (@m = (@n + 1)) {
         .responsive((@index - 1)); // next iteration
-        @current-class: extract(@suffixes, @index);
-        @current-breakpoint: extract(@breakpoints, (@index - 1));
+        @current-suffix: extract(@viewport-suffixes, @index);
+        @current-breakpoint: extract(@viewport-breakpoints, (@index - 1));
 
         @media @current-breakpoint {
-            .space(@current-class);
+            .space(@current-suffix);
         }
     }
 
@@ -156,7 +132,7 @@
     }
 
     // Render default state before first breakpoint
-    .space(@none, @suff-sep:@none);
+    .space(@none);
     .space(@first-suffix);
 
     // Render mediaqueries with breakpoints

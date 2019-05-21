@@ -1,6 +1,6 @@
 .global-settings() {
-    @bg-color: #FFF;  // background
-    @txt-color: #000; // text color
+    @global-paper-color: #FFF;  // background
+    @global-ink-color: #000; // text color
     @root-fz: 16px;   // root fonts size
     @global-miw: 320px;  // minimum site width
     @global-maw: 1920px; // maximum site width
@@ -24,8 +24,8 @@
     }
 
     html {
-        background-color: @bg-color;
-        color: @txt-color;
+        background-color: @global-paper-color;
+        color: @global-ink-color;
         font-size: @root-fz;
         min-width: @global-miw;
     }

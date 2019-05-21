@@ -2,40 +2,36 @@
 
 .txt-settings() {
     // media breakpoints
-    @breakpoints:
+    @viewport-breakpoints:
         576px,
-        768px,
-        992px,
-        1200px;
+        768px;
 
     // names for breakpoint suffixes
-    @suffixes: xs, sm, md, lg, xl;
-    @suffixes-separator: ~"\:";  // will render css as .txt-left\:xs
+    @viewport-suffixes: ~"\:sm", ~"\:md", ~"\:lg"; // will render css as .txt-left\:sm
 
-    // IMPORTANT: suffixes count should be bigger than breakpoints count by 1
-    // suffixes-count = breakpoints-count + 1
+    // IMPORTANT: if we have 2 viewport breakpoints, we must define 3 viewport suffixes.
 }
 
 & {
 
     .txt-settings();
 
-    @n: length(@breakpoints); // how many breakpoints we have
-    @m: length(@suffixes);    // how many suffixes we have
-    @first-suffix: extract(@suffixes, 1); // first breakpoint suffix
+    @n: length(@viewport-breakpoints); // how many breakpoints we have
+    @m: length(@viewport-suffixes);    // how many suffixes we have
+    @first-suffix: extract(@viewport-suffixes, 1); // first breakpoint suffix
 
     // Create breakpoints
     .responsive(@index: @m) when (@index > 1) and (@m = (@n + 1)) {
         .responsive((@index - 1)); // next iteration
-        @current-class: extract(@suffixes, @index);
-        @current-breakpoint: extract(@breakpoints, (@index - 1));
+        @current-suffix: extract(@viewport-suffixes, @index);
+        @current-breakpoint: extract(@viewport-breakpoints, (@index - 1));
 
         // render from
         @media (min-width: @current-breakpoint) {
-            .txt-left@{suffixes-separator}@{current-class}    { text-align: left; }
-            .txt-right@{suffixes-separator}@{current-class}   { text-align: right; }
-            .txt-center@{suffixes-separator}@{current-class}  { text-align: center; }
-            .txt-justify@{suffixes-separator}@{current-class} { text-align: justify; }
+            .txt-left@{current-suffix}    { text-align: left; }
+            .txt-right@{current-suffix}   { text-align: right; }
+            .txt-center@{current-suffix}  { text-align: center; }
+            .txt-justify@{current-suffix} { text-align: justify; }
         }
     }
 
@@ -52,14 +48,13 @@
     }
 
     & when (@m > 1) {
-        .txt-left@{suffixes-separator}@{first-suffix}    { text-align: left; }
-        .txt-right@{suffixes-separator}@{first-suffix}   { text-align: right; }
-        .txt-center@{suffixes-separator}@{first-suffix}  { text-align: center; }
-        .txt-justify@{suffixes-separator}@{first-suffix} { text-align: justify; }
+        .txt-left@{first-suffix}    { text-align: left; }
+        .txt-right@{first-suffix}   { text-align: right; }
+        .txt-center@{first-suffix}  { text-align: center; }
+        .txt-justify@{first-suffix} { text-align: justify; }
     }
 
     // Render mediaqueries with breakpoints
     .responsive();
-
 
 }

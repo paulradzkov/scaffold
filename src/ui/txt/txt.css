@@ -19,33 +19,19 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.txt-left\:xs {
+.txt-left\:sm {
   text-align: left;
 }
-.txt-right\:xs {
+.txt-right\:sm {
   text-align: right;
 }
-.txt-center\:xs {
+.txt-center\:sm {
   text-align: center;
 }
-.txt-justify\:xs {
+.txt-justify\:sm {
   text-align: justify;
 }
 @media (min-width: 576px) {
-  .txt-left\:sm {
-    text-align: left;
-  }
-  .txt-right\:sm {
-    text-align: right;
-  }
-  .txt-center\:sm {
-    text-align: center;
-  }
-  .txt-justify\:sm {
-    text-align: justify;
-  }
-}
-@media (min-width: 768px) {
   .txt-left\:md {
     text-align: left;
   }
@@ -59,7 +45,7 @@
     text-align: justify;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .txt-left\:lg {
     text-align: left;
   }
@@ -70,20 +56,6 @@
     text-align: center;
   }
   .txt-justify\:lg {
-    text-align: justify;
-  }
-}
-@media (min-width: 1200px) {
-  .txt-left\:xl {
-    text-align: left;
-  }
-  .txt-right\:xl {
-    text-align: right;
-  }
-  .txt-center\:xl {
-    text-align: center;
-  }
-  .txt-justify\:xl {
     text-align: justify;
   }
 }
