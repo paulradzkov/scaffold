@@ -32,7 +32,6 @@
     @m: length(@viewport-suffixes);    // how many suffixes we have
     @first-suffix: extract(@viewport-suffixes, 1); // first breakpoint suffix
 
-    @none:~""; // this produces empty string
     @top: -t;
     @bottom: -b;
     @left: -l;
@@ -53,22 +52,26 @@
             // we don't want .space-minus-zero:xs { margin: 0;}
             & when not ((@type = minus) and (@index = 1)) {
                 & when (@sign = 1) {
-                    .space-@{type}@{current-alias}@{suff}          { && { @{prop}:        ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{top}@{current-alias}@{suff}    { && { @{prop}-top:    ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{bottom}@{current-alias}@{suff} { && { @{prop}-bottom: ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{left}@{current-alias}@{suff}   { && { @{prop}-left:   ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{right}@{current-alias}@{suff}  { && { @{prop}-right:  ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{vertical}@{current-alias}@{suff}      { && { @{prop}-top:    ~"var(--space@{current-alias})"; @{prop}-bottom: ~"var(--space@{current-alias})"; } }
-                    .space-@{type}@{horizontal}@{current-alias}@{suff}      { && { @{prop}-left:   ~"var(--space@{current-alias})"; @{prop}-right:  ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{current-alias}@{suff}               { && { @{prop}:        ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{top}@{current-alias}@{suff}         { && { @{prop}-top:    ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{bottom}@{current-alias}@{suff}      { && { @{prop}-bottom: ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{left}@{current-alias}@{suff}        { && { @{prop}-left:   ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{right}@{current-alias}@{suff}       { && { @{prop}-right:  ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{vertical}@{current-alias}@{suff}    { && { @{prop}-top:    ~"var(--space@{current-alias})"; 
+                                                                               @{prop}-bottom: ~"var(--space@{current-alias})"; } }
+                    .space-@{type}@{horizontal}@{current-alias}@{suff}  { && { @{prop}-left:   ~"var(--space@{current-alias})"; 
+                                                                               @{prop}-right:  ~"var(--space@{current-alias})"; } }
                 }
                 & when (@sign = -1) {
-                    .space-@{type}@{current-alias}@{suff}          { && { @{prop}:        ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{top}@{current-alias}@{suff}    { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{bottom}@{current-alias}@{suff} { && { @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{left}@{current-alias}@{suff}   { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{right}@{current-alias}@{suff}  { && { @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{vertical}@{current-alias}@{suff}      { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
-                    .space-@{type}@{horizontal}@{current-alias}@{suff}      { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{current-alias}@{suff}               { && { @{prop}:        ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{top}@{current-alias}@{suff}         { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{bottom}@{current-alias}@{suff}      { && { @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{left}@{current-alias}@{suff}        { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{right}@{current-alias}@{suff}       { && { @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{vertical}@{current-alias}@{suff}    { && { @{prop}-top:    ~"var(--space-minus@{current-alias})"; 
+                                                                               @{prop}-bottom: ~"var(--space-minus@{current-alias})"; } }
+                    .space-@{type}@{horizontal}@{current-alias}@{suff}  { && { @{prop}-left:   ~"var(--space-minus@{current-alias})"; 
+                                                                               @{prop}-right:  ~"var(--space-minus@{current-alias})"; } }
                 }
             }
         }
@@ -77,13 +80,15 @@
 
             // we don't want .space-minus-zero:xs { margin: 0;}
             & when not ((@type = minus) and (@index = 1)) {
-                .space-@{type}@{current-alias}@{suff}          { && { @{prop}:        (@current-value * @sign); } }
-                .space-@{type}@{top}@{current-alias}@{suff}    { && { @{prop}-top:    (@current-value * @sign); } }
-                .space-@{type}@{bottom}@{current-alias}@{suff} { && { @{prop}-bottom: (@current-value * @sign); } }
-                .space-@{type}@{left}@{current-alias}@{suff}   { && { @{prop}-left:   (@current-value * @sign); } }
-                .space-@{type}@{right}@{current-alias}@{suff}  { && { @{prop}-right:  (@current-value * @sign); } }
-                .space-@{type}@{vertical}@{current-alias}@{suff}      { && { @{prop}-top:    (@current-value * @sign); @{prop}-bottom: (@current-value * @sign); } }
-                .space-@{type}@{horizontal}@{current-alias}@{suff}      { && { @{prop}-left:   (@current-value * @sign); @{prop}-right:  (@current-value * @sign); } }
+                .space-@{type}@{current-alias}@{suff}               { && { @{prop}:        (@current-value * @sign); } }
+                .space-@{type}@{top}@{current-alias}@{suff}         { && { @{prop}-top:    (@current-value * @sign); } }
+                .space-@{type}@{bottom}@{current-alias}@{suff}      { && { @{prop}-bottom: (@current-value * @sign); } }
+                .space-@{type}@{left}@{current-alias}@{suff}        { && { @{prop}-left:   (@current-value * @sign); } }
+                .space-@{type}@{right}@{current-alias}@{suff}       { && { @{prop}-right:  (@current-value * @sign); } }
+                .space-@{type}@{vertical}@{current-alias}@{suff}    { && { @{prop}-top:    (@current-value * @sign); 
+                                                                           @{prop}-bottom: (@current-value * @sign); } }
+                .space-@{type}@{horizontal}@{current-alias}@{suff}  { && { @{prop}-left:   (@current-value * @sign); 
+                                                                           @{prop}-right:  (@current-value * @sign); } }
             }
         }
     }
@@ -102,13 +107,15 @@
     // Render module with breakpoint suffix
     .space(@suff;) {
 
-        .space-auto@{suff}          { && { margin:        auto; } }
-        .space-auto@{top}@{suff}    { && { margin-top:    auto; } }
-        .space-auto@{bottom}@{suff} { && { margin-bottom: auto; } }
-        .space-auto@{left}@{suff}   { && { margin-left:   auto; } }
-        .space-auto@{right}@{suff}  { && { margin-right:  auto; } }
-        .space-auto@{vertical}@{suff}      { && { margin-top: auto; margin-bottom: auto; } }
-        .space-auto@{horizontal}@{suff}      { && { margin-left: auto; margin-right: auto; } }
+        .space-auto@{suff}              { && { margin:        auto; } }
+        .space-auto@{top}@{suff}        { && { margin-top:    auto; } }
+        .space-auto@{bottom}@{suff}     { && { margin-bottom: auto; } }
+        .space-auto@{left}@{suff}       { && { margin-left:   auto; } }
+        .space-auto@{right}@{suff}      { && { margin-right:  auto; } }
+        .space-auto@{vertical}@{suff}   { && { margin-top:    auto; 
+                                               margin-bottom: auto; } }
+        .space-auto@{horizontal}@{suff} { && { margin-left:   auto; 
+                                               margin-right:  auto; } }
 
         .loop-space-steps(in, @suff, padding, 1, @i);
         .loop-space-steps(out, @suff, margin, 1, @i);
@@ -132,7 +139,7 @@
     }
 
     // Render default state before first breakpoint
-    .space(@none);
+    .space(~"");
     .space(@first-suffix);
 
     // Render mediaqueries with breakpoints

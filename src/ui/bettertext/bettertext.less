@@ -11,7 +11,7 @@
     @font-headers: @font-body;         // headers
     @font-code: Courier, monospace, monospace;  // code (duplication is intentional)
     @scale1: 1.125;                    // header size multiplier for 'mobile' screens
-    @scale2: 1.250;                    // header size multiplier for 'desktop' screens
+    @scale2: 1.25;                     // header size multiplier for 'desktop' screens
 
     // margins for body, articles and sections
     @space-around: ~"40px";
@@ -267,7 +267,6 @@
     // do not create breakpoint and override if scale is not changing
     & when not (@scale1 = @scale2) {
         @media @bettertext-breakpoint {
-
             h1 {
                 font-size: @h1-l-fz;
                 line-height: @h1-l-lh;
@@ -354,7 +353,7 @@
     }
 
     @keyframes fixlists {
-        0%   { text-indent: -0.001em; }
+        0% { text-indent: -0.001em; }
         100% { text-indent: 0; }
     }
 
@@ -650,7 +649,6 @@
         body:not(.@{reset-classname}),
         article:not(.@{reset-classname}),
         section:not(.@{reset-classname}) {
-
             & > *:not(.@{reset-classname}) {
                 margin-left: auto;
                 margin-right: auto;

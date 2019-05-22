@@ -14,7 +14,6 @@
     @viewport-suffixes:  ~"\:sm", ~"\:md", ~"\:lg";
 
     // IMPORTANT: if we have 2 viewport breakpoints, we must define 3 viewport suffixes.
-
 }
 
 & {
@@ -78,13 +77,13 @@
 
         .flx-cell-offset-@{index}@{suffix} {
             @shift: percentage((@index / @grid-columns));
+
             margin-left: @shift;
         }
     }
 
     // Create modifiers for columns
     .render-cell-modifiers(@suffix) {
-
         .flx-cell {
             &@{suffix} {
                 flex-grow: 1;
@@ -102,43 +101,44 @@
             }
 
             &-first@{suffix} { order: -1; }
-            &-last@{suffix}  { order:  1; }
+            &-last@{suffix} { order: 1; }
         }
     }
 
     // Create additional flex row and col modifiers
     .render-flex-modifiers(@suffix) {
         .flx-row {
-            &-reverse@{suffix}  { flex-direction: row-reverse; }
+            &-reverse@{suffix} { flex-direction: row-reverse; }
 
-            &-start@{suffix}    { justify-content: flex-start; }
-            &-center@{suffix}   { justify-content: center; }
-            &-end@{suffix}      { justify-content: flex-end; }
+            &-start@{suffix} { justify-content: flex-start; }
+            &-center@{suffix} { justify-content: center; }
+            &-end@{suffix} { justify-content: flex-end; }
 
-            &-top@{suffix}      { align-items: flex-start; }
-            &-middle@{suffix}   { align-items: center; }
-            &-bottom@{suffix}   { align-items: flex-end; }
+            &-top@{suffix} { align-items: flex-start; }
+            &-middle@{suffix} { align-items: center; }
+            &-bottom@{suffix} { align-items: flex-end; }
             &-baseline@{suffix} { align-items: baseline; }
 
-            &-around@{suffix}   { justify-content: space-around; }
-            &-between@{suffix}  { justify-content: space-between; }
+            &-around@{suffix} { justify-content: space-around; }
+            &-between@{suffix} { justify-content: space-between; }
 
-            &-nowrap@{suffix}   { flex-wrap: nowrap; }
-            &-scroll@{suffix}   { 
+            &-nowrap@{suffix} { flex-wrap: nowrap; }
+
+            &-scroll@{suffix} {
                 flex-wrap: nowrap;
-                overflow: auto; 
+                overflow: auto;
             }
         }
 
         .flx-col {
-            &-reverse@{suffix}  { flex-direction: row-reverse; }
+            &-reverse@{suffix} { flex-direction: row-reverse; }
 
-            &-top@{suffix}      { justify-content: flex-start; }
-            &-middle@{suffix}   { justify-content: center; }
-            &-bottom@{suffix}   { justify-content: flex-end; }
+            &-top@{suffix} { justify-content: flex-start; }
+            &-middle@{suffix} { justify-content: center; }
+            &-bottom@{suffix} { justify-content: flex-end; }
 
-            &-around@{suffix}   { justify-content: space-around; }
-            &-between@{suffix}  { justify-content: space-between; }
+            &-around@{suffix} { justify-content: space-around; }
+            &-between@{suffix} { justify-content: space-between; }
         }
     }
 
@@ -190,5 +190,4 @@
 
     // Render mediaqueries with breakpoints if any
     .responsive();
-
 }
