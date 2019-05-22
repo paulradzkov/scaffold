@@ -13,7 +13,7 @@
     @links-active:        #bc4df8;
     @links-fadeout: 75%;
     //animation
-    @links-aniduration: .3s; //fading duration from hover
+    @links-aniduration: 0.3s; //fading duration from hover
 }
 
 // global coloring mixin
@@ -126,7 +126,6 @@
 }
 
 .links-color(@links-link, @links-hover, @links-visited,  @links-visitedhover, @links-active, @fadeout: 75%) {
-
     &,
     &:link {
         color: @links-link;
@@ -167,7 +166,6 @@
 }
 
 & {
-
     a,
     .@{links-class},
     .@{links-class}-novisited,
@@ -200,7 +198,6 @@
     .@{links-class}-novisited,
     .@{links-class}-inherit,
     a:not(.reset) {
-
         &,
         &:link,
         &:visited {

@@ -28,19 +28,26 @@
 
         // render from
         @media (min-width: @current-breakpoint) {
-            .txt-left@{current-suffix}    { text-align: left; }
-            .txt-right@{current-suffix}   { text-align: right; }
-            .txt-center@{current-suffix}  { text-align: center; }
+            .txt-left@{current-suffix} { text-align: left; }
+
+            .txt-right@{current-suffix} { text-align: right; }
+
+            .txt-center@{current-suffix} { text-align: center; }
+
             .txt-justify@{current-suffix} { text-align: justify; }
         }
     }
 
-    .txt-left    { text-align: left; }
-    .txt-right   { text-align: right; }
-    .txt-center  { text-align: center; }
+    .txt-left { text-align: left; }
+
+    .txt-right { text-align: right; }
+
+    .txt-center { text-align: center; }
+
     .txt-justify { text-align: justify; }
 
     .txt-nowrap { white-space: nowrap; }
+
     .txt-ellipsis {
         white-space: nowrap;
         overflow: hidden;
@@ -48,13 +55,15 @@
     }
 
     & when (@m > 1) {
-        .txt-left@{first-suffix}    { text-align: left; }
-        .txt-right@{first-suffix}   { text-align: right; }
-        .txt-center@{first-suffix}  { text-align: center; }
+        .txt-left@{first-suffix} { text-align: left; }
+
+        .txt-right@{first-suffix} { text-align: right; }
+
+        .txt-center@{first-suffix} { text-align: center; }
+
         .txt-justify@{first-suffix} { text-align: justify; }
     }
 
     // Render mediaqueries with breakpoints
     .responsive();
-
 }
