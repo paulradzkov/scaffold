@@ -8,10 +8,15 @@ It is a template for a site with components documentation.
 
 ## Gulp tasks
 
-`gulp clean` — delete `public` folder.  
-`gulp rendercss` — prepare css files.  
-`gulp watcher` — watch changes and recompile.
+`gulp cleanpublic` — delete `public` folder.  
+`gulp cleansrc` — removes `*.map` files srom `src/ui` folder.
 
+`gulp renderless` — compiles `*.less` to `*.css`.  
+`gulp renderscss` — compiles `*.scss` to `*.css`.  
+`gulp csspost` — postcss processing.  
+`gulp lintcss` — lint style sources.
+
+`gulp watcher` — watch changes and recompile.
 `gulp build` — clean and build project.  
 `gulp dev` — clean, build and watch.  
 `gulp` — same as build.
