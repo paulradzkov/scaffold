@@ -1,8 +1,8 @@
 * {
   box-sizing: inherit;
 }
-*:before,
-*after {
+*::before,
+*::after {
   box-sizing: inherit;
 }
 html,
@@ -100,15 +100,15 @@ p {
 /*
     minimum paragraph width when floating http://css-tricks.com/minimum-paragraph-widths/
     */
-p:before,
-ol:not(.default):before,
-ul:not(.default):before {
+p::before,
+ol:not(.default)::before,
+ul:not(.default)::before {
   content: '';
   display: block;
   width: 10em;
   overflow: hidden;
 }
-li p:before {
+li p::before {
   content: none;
 }
 h1,

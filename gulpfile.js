@@ -10,10 +10,13 @@ const autoprefixer = require('autoprefixer');
 const csslint = require('gulp-csslint');
 const htmlReporter = require('gulp-csslint-report');
 const gulpStylelint = require('gulp-stylelint');
+const readConfig = require('read-config');
+const svgSprite = require('gulp-svg-sprite');
 //const pug = require('gulp-pug');
 //const concat = require('gulp-concat');
 
 sass.compiler = require('node-sass');
+var svgSpriteConfig = readConfig('src/ui/icons/default.config.yml');
 
 function cleanpublic(cb) {
     del(['public'], cb);
@@ -53,7 +56,7 @@ function csspost(cb) {
         autoprefixer()
     ];
     return src(['src/ui/**/*.css', '!src/ui/**/*.min.css'])
-        .pipe(sourcemaps.init({loadMaps: true}))
+        .pipe(sourcemaps.init({ loadMaps: true }))
         .pipe(postcss(plugins))
         .pipe(cssmin())
         .pipe(rename({ extname: '.min.css' }))
@@ -73,10 +76,17 @@ function lintcss(cb) {
             failAfterError: false,
             reportOutputDir: './reports/stylelint',
             reporters: [
-                {formatter: 'verbose', console: true},
-                {formatter: 'json', save: 'report.json'}
+                { formatter: 'verbose', console: true },
+                { formatter: 'json', save: 'report.json' }
             ]
         }));
+}
+
+function createsvgsprite(cb) {
+    cb();
+    return src('**/*.svg', { cwd: 'src/ui/icons' })
+        .pipe(svgSprite(svgSpriteConfig))
+        .pipe(dest('public/ui/icons'))
 }
 
 //function js() {
@@ -91,14 +101,15 @@ function watchsrc() {
 }
 
 exports.cleanpublic = cleanpublic;
-exports.cleansrc    = cleansrc;
+exports.cleansrc = cleansrc;
 //exports.js = js;
 exports.renderless = renderless;
 exports.renderscss = renderscss;
-exports.csspost    = csspost;
-exports.lintcss    = lintcss;
+exports.csspost = csspost;
+exports.lintcss = lintcss;
+exports.createsvgsprite = createsvgsprite;
 //exports.html = html;
 exports.watchsrc = watchsrc;
-exports.build   = series(renderless, renderscss, csspost, cleansrc);
-exports.dev     = series(renderless, renderscss, csspost, cleansrc, watchsrc);
+exports.build = series(renderless, renderscss, csspost, cleansrc);
+exports.dev = series(renderless, renderscss, csspost, cleansrc, watchsrc);
 exports.default = series(renderless, renderscss, csspost, cleansrc);
