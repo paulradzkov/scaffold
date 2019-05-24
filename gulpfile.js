@@ -26,8 +26,7 @@ function cleansrc(cb) {
     del(['src/ui/**/*.map'], cb);
 }
 
-function copyvendors(cb) {
-    cb();
+function copyvendors() {
     return src([
             './node_modules/svgxuse/*.{js,md}'
         ], { base: 'node_modules' })
@@ -40,8 +39,7 @@ function copyvendors(cb) {
 //    .pipe(dest('build/html'))
 //}
 
-function renderless(cb) {
-    cb();
+function renderless() {
     return src('src/ui/**/*.less')
         .pipe(sourcemaps.init())
         .pipe(less())
@@ -49,8 +47,7 @@ function renderless(cb) {
         .pipe(dest('src/ui'));
 }
 
-function renderscss(cb) {
-    cb();
+function renderscss() {
     return src('src/ui/**/*.scss', 'src/ui/**/*.sass')
         .pipe(sourcemaps.init())
         .pipe(sass().on('error', sass.logError))
@@ -58,8 +55,7 @@ function renderscss(cb) {
         .pipe(dest('src/ui'));
 }
 
-function csspost(cb) {
-    cb();
+function csspost() {
     var plugins = [
         autoprefixer()
     ];
@@ -72,8 +68,7 @@ function csspost(cb) {
         .pipe(dest('public/ui'));
 }
 
-function lintcss(cb) {
-    cb();
+function lintcss() {
     return src('src/ui/**/*.less')
         //.pipe(csslint())
         //.pipe(htmlReporter({
@@ -90,8 +85,7 @@ function lintcss(cb) {
         }));
 }
 
-function createsvgsprite(cb) {
-    cb();
+function createsvgsprite() {
     return src('**/*.svg', { cwd: 'src/ui/icons' })
         .pipe(svgSprite(svgSpriteConfig))
         .pipe(dest('public/ui/icons'))
@@ -108,6 +102,14 @@ function watchsrc() {
     watch(['src/ui/**/*.scss', 'src/ui/**/*.sass'], series(renderscss, csspost));
 }
 
+// chaining tasks
+
+const clean = parallel(cleanpublic, cleansrc);
+const assets = parallel(createsvgsprite, copyvendors);
+const rendercss = parallel(renderless, renderscss);
+const build = series(clean, rendercss, csspost, cleansrc, assets);
+const checks = series(lintcss);
+
 exports.cleanpublic = cleanpublic;
 exports.cleansrc = cleansrc;
 exports.copyvendors = copyvendors;
@@ -119,6 +121,9 @@ exports.lintcss = lintcss;
 exports.createsvgsprite = createsvgsprite;
 //exports.html = html;
 exports.watchsrc = watchsrc;
-exports.build = series(renderless, renderscss, csspost, cleansrc);
-exports.dev = series(renderless, renderscss, csspost, cleansrc, watchsrc);
-exports.default = series(renderless, renderscss, csspost, cleansrc);
+
+exports.build = build;
+exports.clean = clean;
+exports.dev = series(build, watchsrc);
+exports.checks = checks;
+exports.default = build;
