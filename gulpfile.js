@@ -26,6 +26,14 @@ function cleansrc(cb) {
     del(['src/ui/**/*.map'], cb);
 }
 
+function copyvendors(cb) {
+    cb();
+    return src([
+            './node_modules/svgxuse/*.{js,md}'
+        ], { base: 'node_modules' })
+        .pipe(dest('./public/ui/'));
+}
+
 //function html() {
 //  return src('client/templates/*.pug')
 //    .pipe(pug())
@@ -102,6 +110,7 @@ function watchsrc() {
 
 exports.cleanpublic = cleanpublic;
 exports.cleansrc = cleansrc;
+exports.copyvendors = copyvendors;
 //exports.js = js;
 exports.renderless = renderless;
 exports.renderscss = renderscss;
