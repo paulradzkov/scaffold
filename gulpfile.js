@@ -1,4 +1,4 @@
-const { src, dest, series, parallel, lastRun, watch } = require('gulp')
+const { src, dest, series, parallel, watch } = require('gulp')
 const del = require('delete')
 const less = require('gulp-less')
 const sass = require('gulp-sass')
@@ -7,8 +7,6 @@ const rename = require('gulp-rename')
 const sourcemaps = require('gulp-sourcemaps')
 const postcss = require('gulp-postcss')
 const autoprefixer = require('autoprefixer')
-const csslint = require('gulp-csslint')
-const htmlReporter = require('gulp-csslint-report')
 const gulpStylelint = require('gulp-stylelint')
 const readConfig = require('read-config')
 const svgSprite = require('gulp-svg-sprite')
@@ -71,11 +69,6 @@ function csspost () {
 
 function lintcss () {
   return src('src/ui/**/*.less')
-  // .pipe(csslint())
-  // .pipe(htmlReporter({
-  //    'filename': 'index.html',
-  //    'directory': './reports/csslint'
-  // }))
     .pipe(gulpStylelint({
       failAfterError: false,
       reportOutputDir: './reports/stylelint',
