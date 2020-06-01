@@ -173,16 +173,16 @@
     /*
     Add default spacing for structure tags without classnames
     */
-    body:not(.@{reset-classname}),
-    article:not(.@{reset-classname}),
-    section:not(.@{reset-classname}) {
+    body:not(.@{reset-selector}),
+    article:not(.@{reset-selector}),
+    section:not(.@{reset-selector}) {
         margin: @space-around;
 
         /*
         Reset nested margins
         */
-        article:not(.@{reset-classname}),
-        section:not(.@{reset-classname}) {
+        article:not(.@{reset-selector}),
+        section:not(.@{reset-selector}) {
             margin-left: 0;
             margin-right: 0;
         }
@@ -197,8 +197,8 @@
     minimum paragraph width when floating http://css-tricks.com/minimum-paragraph-widths/
     */
     p::before,
-    ol:not(.@{reset-classname})::before,
-    ul:not(.@{reset-classname})::before {
+    ol:not(.@{reset-selector})::before,
+    ul:not(.@{reset-selector})::before {
         content: '';
         display: block;
         width: 10em;
@@ -334,8 +334,8 @@
     // 1) force reflow to fix bullet overlapping.
     // See https://git.io/vHyUo for details.
 
-    ul:not(.@{reset-classname}),
-    ol:not(.@{reset-classname}) {
+    ul:not(.@{reset-selector}),
+    ol:not(.@{reset-selector}) {
         margin: 0 0 @m-default;
         max-width: calc(@linel - 2.5em);
         padding-left: 0;
@@ -367,7 +367,7 @@
         vertical-align: baseline;
     }
 
-    figure:not(.@{reset-classname}) {
+    figure:not(.@{reset-selector}) {
         margin: (@m-default * 2) 0;
 
         & > p {
@@ -377,7 +377,7 @@
         }
     }
 
-    figcaption:not(.@{reset-classname}) {
+    figcaption:not(.@{reset-selector}) {
         max-width: (@linel);
         font-size: @fz-small-ems;
         margin: 0.5em 0 (@m-default * 2);
@@ -387,7 +387,7 @@
         }
     }
 
-    blockquote:not(.@{reset-classname}) {
+    blockquote:not(.@{reset-selector}) {
         box-sizing: border-box;
         max-width: calc(@linel - 5em);
         margin: 0 0 (@m-default);
@@ -414,7 +414,7 @@
        "lnum" — lining figures (not oldstyle figures "onum")
        "tnum" — tabular figures (not proportional figures "pnum")
     */
-    table:not(.@{reset-classname}) {
+    table:not(.@{reset-selector}) {
         margin-top: (@m-default * 2);
         margin-bottom: (@m-default * 2);
         border-collapse: separate;
@@ -462,7 +462,7 @@
 
     /* definition lists */
 
-    dl:not(.@{reset-classname}) {
+    dl:not(.@{reset-selector}) {
         max-width: @linel;
         margin: 0 0 @m-default;
 
@@ -484,7 +484,7 @@
         height: 0; /* 1 */
         overflow: visible; /* 2 */
 
-        &:not(.@{reset-classname}) {
+        &:not(.@{reset-selector}) {
             border: 0;
             border-bottom: 1px solid;
             margin-top: @m-default;
@@ -646,27 +646,27 @@
 
     // central layout experiment
     & when (@central-layout) {
-        body:not(.@{reset-classname}),
-        article:not(.@{reset-classname}),
-        section:not(.@{reset-classname}) {
-            & > *:not(.@{reset-classname}) {
+        body:not(.@{reset-selector}),
+        article:not(.@{reset-selector}),
+        section:not(.@{reset-selector}) {
+            & > *:not(.@{reset-selector}) {
                 margin-left: auto;
                 margin-right: auto;
                 max-width: @linel;
             }
 
-            & > ul:not(.@{reset-classname}),
-            & > ol:not(.@{reset-classname}) {
+            & > ul:not(.@{reset-selector}),
+            & > ol:not(.@{reset-selector}) {
                 max-width: calc(@linel - 2.5em);
             }
 
-            & > pre:not(.@{reset-classname}) {
+            & > pre:not(.@{reset-selector}) {
                 max-width: calc(100% - (100% - @linel) / 2);
                 margin-left: auto;
                 margin-right: 0;
             }
 
-            > figure:not(.@{reset-classname}) {
+            > figure:not(.@{reset-selector}) {
                 display: table;
                 max-width: 100%;
 
